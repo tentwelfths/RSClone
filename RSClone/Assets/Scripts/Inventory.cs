@@ -9,14 +9,16 @@ public class Inventory : MonoBehaviour {
     //Probably a dictionary of items?
     public static Item[] items = new Item[19];
 
-    public static void addItem(Item item)
+
+    // Returns true if the item was successfully added to inventory.
+    public static bool addItem(Item item)
     {
       for (int i = 0; i < items.Length; ++i)
       {
         Debug.Log("Item " + i + " " + items[i].empty);
         if (items[i].empty)
         {
-          Debug.Log("Filling empty slot with " + item.name);
+          GamePlayLog.LogMessage("Filling empty slot with " + item.name);
           items[i].name = item.name;
           items[i].sprite = item.sprite;
           items[i].id = item.id;
@@ -25,16 +27,32 @@ public class Inventory : MonoBehaviour {
           items[i].stackable = item.stackable;
           items[i].examine = item.examine;
           items[i].empty = false;
-          break;
+                return true;
         }
       }
+
+      //Listing the inventory?
       for (int i = 0; i < items.Length; ++i)
       {
         if (!items[i].empty)
         {
-          Debug.Log(items[i].name);
+          Debug.Log("Item " + i + " is " + items[i].name);
         }
       }
+      
+        return false;
+    }
+
+    // Checks if the player has an item in their inventory
+    // Will probably adjust to use more readable parameters than id
+    public static bool CheckForItem(int id)
+    {
+        for (int i = 0; i < items.Length; ++i)
+        {
+            if (items[i].id == id)
+                return true;
+        }
+            return false;
     }
 
 
