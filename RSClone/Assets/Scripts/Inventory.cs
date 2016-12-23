@@ -8,7 +8,36 @@ public class Inventory : MonoBehaviour {
     //private static List<Item> items = new List<Item>();
     //Probably a dictionary of items?
     public static Item[] items = new Item[19];
+    public UnityEngine.UI.Image[] itemSlots;
+    public Sprite empty;
 
+    public void Awake()
+    {
+        if (itemSlots.Length != 19)
+            Debug.LogError("ItemSlots must have 19 members!");
+        if (empty == null)
+            Debug.LogError("empty item slot must be defined");
+    }
+
+    public void Update()
+    {
+        UpdateInventory();
+    }
+
+    public void UpdateInventory()
+    {
+        for (int i = 0; i < items.Length; ++i)
+        {
+            if (items[i].empty)
+            {
+                itemSlots[i].sprite = empty;
+            }
+            else
+            {
+                itemSlots[i].sprite = items[i].sprite;
+            }
+        }
+    }
 
     // Returns true if the item was successfully added to inventory.
     public static bool addItem(Item item)
