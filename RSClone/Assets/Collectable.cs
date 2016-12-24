@@ -22,6 +22,6 @@ public class Collectable : MonoBehaviour {
     i.stackable = stackable;
     i.examine = examine;
     Debug.Log(name);
-    Inventory.addItem(i);
+        Inventory.addItem(i);
   }
 }

@@ -47,7 +47,7 @@ public class Inventory : MonoBehaviour {
         Debug.Log("Item " + i + " " + items[i].empty);
         if (items[i].empty)
         {
-          GamePlayLog.LogMessage("Filling empty slot with " + item.name);
+          GamePlayLog.LogMessage("You pick up the " + item.name + ".");
           items[i].name = item.name;
           items[i].sprite = item.sprite;
           items[i].id = item.id;
@@ -68,7 +68,7 @@ public class Inventory : MonoBehaviour {
           Debug.Log("Item " + i + " is " + items[i].name);
         }
       }
-      
+        GamePlayLog.LogMessage("You don't have enough room for that!");
         return false;
     }
 
