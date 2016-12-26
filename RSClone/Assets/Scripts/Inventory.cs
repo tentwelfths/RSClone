@@ -84,6 +84,24 @@ public class Inventory : MonoBehaviour {
             return false;
     }
 
+    // Removes item from player's inventory
+    public static bool RemoveItem(int id)
+    {
+        if(!CheckForItem(id))
+            return false;
+
+        for (int i = 0; i < items.Length; ++i)
+        {
+            if (items[i].id == id)
+            {
+                items[i].empty = true;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 
     static int addGold(int _Amt)
     {
