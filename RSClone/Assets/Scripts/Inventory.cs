@@ -7,16 +7,30 @@ public class Inventory : MonoBehaviour {
     private static int gold;
     //private static List<Item> items = new List<Item>();
     //Probably a dictionary of items?
-    public static Item[] items = new Item[19];
+    public static ItemSlot[] items = new ItemSlot[19];
     public UnityEngine.UI.Image[] itemSlots;
-    public Sprite empty;
+    private static Dictionary<string, Item> itemList = new Dictionary<string, Item>();
+
 
     public void Awake()
     {
         if (itemSlots.Length != 19)
             Debug.LogError("ItemSlots must have 19 members!");
-        if (empty == null)
-            Debug.LogError("empty item slot must be defined");
+
+        
+    }
+
+    public void Start()
+    {
+        // Set gold to 0
+        setGold(0);
+
+        // Set all items to null to start
+        for (int i = 0; i < items.Length; i++)
+        {
+            items[i].quantity = 0;
+            items[i].item = itemList[""];
+        }
     }
 
     public void Update()
@@ -26,75 +40,87 @@ public class Inventory : MonoBehaviour {
 
     public void UpdateInventory()
     {
-        for (int i = 0; i < items.Length; ++i)
+        // Updates sprites in inventory
+        for(int i = 0; i < itemSlots.Length; i++)
         {
-            if (items[i].empty)
-            {
-                itemSlots[i].sprite = empty;
-            }
-            else
-            {
-                itemSlots[i].sprite = items[i].sprite;
-            }
+            itemSlots[i].sprite = items[i].item.sprite;
         }
     }
 
     // Returns true if the item was successfully added to inventory.
-    public static bool addItem(Item item)
+    public static bool addItem(string _item)
     {
-      for (int i = 0; i < items.Length; ++i)
-      {
-        Debug.Log("Item " + i + " " + items[i].empty);
-        if (items[i].empty)
-        {
-          GamePlayLog.LogMessage("You pick up the " + item.name + ".");
-          items[i].name = item.name;
-          items[i].sprite = item.sprite;
-          items[i].id = item.id;
-          items[i].cost = item.cost;
-          items[i].weight = item.weight;
-          items[i].stackable = item.stackable;
-          items[i].examine = item.examine;
-          items[i].empty = false;
-                return true;
-        }
-      }
+        // Checks if inventory is full
+        if (CheckInventoryFull())
+            return false;
 
-      //Listing the inventory?
-      for (int i = 0; i < items.Length; ++i)
-      {
-        if (!items[i].empty)
+        // Find first empty slot in inventory
+        for (int i = 0; i < items.Length; i++)
         {
-          Debug.Log("Item " + i + " is " + items[i].name);
+            if (items[i].item.id == "")
+            {
+                items[i].item = lookupItem(_item);
+                GamePlayLog.LogMessage("Picking up " + items[i].item.name);
+                return true;
+            }
         }
-      }
-        GamePlayLog.LogMessage("You don't have enough room for that!");
         return false;
+
+        
+    }
+
+    public static bool addItem(string _item, int qty)
+    {
+        // Checks if inventory already has item
+        // Updates item quantity
+
+        // otherwise
+        // Checks if inventory is full
+        // Find first empty slot in inventory
+        return false;
+
+
+    }
+
+    // Returns true if there are no empty item slots
+    public static bool CheckInventoryFull()
+    {
+        // Iterates through item slots
+        for(int i = 0; i < items.Length; i++)
+        {
+            if (items[i].item.id == "")
+                return false;
+        }
+        // If quantity is 0
+        return true;
+
     }
 
     // Checks if the player has an item in their inventory
-    // Will probably adjust to use more readable parameters than id
-    public static bool CheckForItem(int id)
+    public static bool CheckForItem(string _id)
     {
         for (int i = 0; i < items.Length; ++i)
         {
-            if (items[i].id == id)
+            // Don't bother with empty item slots
+            // if player has the item(in any quantity)
+            if (items[i].item.id == _id)
                 return true;
         }
             return false;
     }
 
-    // Removes item from player's inventory
-    public static bool RemoveItem(int id)
+    // Removes first instance of an item from player's inventory
+    public static bool RemoveItem(string _toRemove)
     {
-        if(!CheckForItem(id))
-            return false;
+        //Check that the player has it at all first
+        if(!CheckForItem(_toRemove))
+        return false;
 
-        for (int i = 0; i < items.Length; ++i)
+        for(int i = 0; i < items.Length; i++)
         {
-            if (items[i].id == id)
+            if (items[i].item.id == _toRemove)
             {
-                items[i].empty = true;
+                items[i].item = lookupItem("");
                 return true;
             }
         }
@@ -129,23 +155,37 @@ public class Inventory : MonoBehaviour {
         return _Amt;
     }
 
-    void Start () {
-        setGold(0);
-        for (int i = 0; i < items.Length; ++i)
-        {
-          items[i].empty = true;
-        }
-	}
+    public static void importItem(Item _item)
+    {
+        itemList.Add(_item.id, _item);
+    }
 
+    public static Item lookupItem(string _name)
+    {
+        return itemList[_name];
+    }
 
+    public struct ItemSlot
+    {
+        public int quantity;
+        public Item item;
+    }
+
+    [System.Serializable]
     public struct Item
     {
-      public bool empty;
+      // Name as it appears in-game
       public string name;
-      public int id;
+      // Unique name of this particular item
+      // I don't see this being different from item name usually
+      public string id;
+      // Base price in gold pieces
       public int cost;
+      // weight in kg
       public float weight;
+      // whether or not the item is stackable
       public bool stackable;
+      // The sprite to use for the item
       public Sprite sprite;
       //Some sort of list of options in addition to Use and Examine
       public string examine;
