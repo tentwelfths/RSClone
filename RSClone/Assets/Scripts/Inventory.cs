@@ -189,6 +189,8 @@ public class Inventory : MonoBehaviour {
       public Sprite sprite;
       //Some sort of list of options in addition to Use and Examine
       public string examine;
+        //Prefab of the item if it's on the ground
+        public GameObject model;
     }
 	
 }
