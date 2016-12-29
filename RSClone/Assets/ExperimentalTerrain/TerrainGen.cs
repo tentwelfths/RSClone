@@ -27,7 +27,6 @@ public class TerrainGen : MonoBehaviour {
             for(int y = 0; y <= ySize; y++)
             {
                 heights[x + (y * ySize)] = height * (heightMap.GetPixel(x,y).r - 0.5f);
-                Debug.Log(heights[x + (y * ySize)]);
             }
         }
 

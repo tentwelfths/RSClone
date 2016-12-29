@@ -8,6 +8,7 @@ public class CameraControl : MonoBehaviour {
     private float CameraHeightDiff = 0.0f;
     public float maxCameraHeightDiff = 5.0f;
     public float rotateSpeed = 5.0f;
+    public float cameraRadius = 10.0f;
     private float angle = Mathf.PI;
 	// Use this for initialization
 	void Start () {
@@ -26,7 +27,7 @@ public class CameraControl : MonoBehaviour {
         if (CameraHeightDiff > maxCameraHeightDiff)
             CameraHeightDiff = maxCameraHeightDiff;
 
-        transform.localPosition = new Vector3(Mathf.Sin(angle) * 10, CameraHeight + CameraHeightDiff, Mathf.Cos(angle) * 10);
+        transform.localPosition = new Vector3(Mathf.Sin(angle) * cameraRadius, CameraHeight + CameraHeightDiff, Mathf.Cos(angle) * cameraRadius);
 
         transform.LookAt(transform.parent);
 	}
