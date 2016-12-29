@@ -45,11 +45,14 @@ public class ItemSpawn : MonoBehaviour {
 
     void Take()
            {
-        collected = true;
-        countdowntimer = respawnTime * 60.0f;
-        Inventory.addItem(item);
-        Destroy(newItem);
+        if (Inventory.addItem(item))
+        {
+            collected = true;
+            countdowntimer = respawnTime * 60.0f;
+            Destroy(newItem);
             col.enabled = false;
+        }
+
         }
 
 }

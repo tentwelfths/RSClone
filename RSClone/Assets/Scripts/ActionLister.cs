@@ -38,6 +38,8 @@ public class ActionLister : MonoBehaviour
 
     void Update()
     {
+        Vector3 topActionPos = Input.mousePosition;
+        topAction.rectTransform.position = topActionPos + new Vector3(100,-30,0);
         if (Actions.Count > 0)
         {
             if (Actions.Count > 1)
