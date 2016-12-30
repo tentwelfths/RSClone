@@ -38,6 +38,7 @@ public class ItemSpawn : MonoBehaviour {
         Vector3 finalpos = newItem.transform.localPosition;
         finalpos.x = 0.0f;
         finalpos.z = 0.0f;
+        finalpos.y = -0.5f + newItem.transform.position.y;
         newItem.transform.localPosition = finalpos;
         collected = false;
         col.enabled = true;
