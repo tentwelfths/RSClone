@@ -11,7 +11,7 @@ public class AligntoMap : MonoBehaviour {
         alignToMap();
 	}
 	
-    void alignToMap()
+    public void alignToMap()
     {
         RaycastHit hit;
         if (Physics.Raycast(gameObject.transform.position + Vector3.up * 1000, Vector3.down, out hit, 2000, MapLayer.value))

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(AligntoMap))]
 public class CharacterWalk : MonoBehaviour {
 
     public float speed = 1.0f;
@@ -29,7 +31,10 @@ public class CharacterWalk : MonoBehaviour {
         float deltX = Destination.x - transform.position.x;
         float deltY = Destination.y - transform.position.z;
         if ((deltX * deltX > 0.01f) || (deltY * deltY > 0.01f))
+        {
             transform.position += new Vector3(deltX, 0, deltY).normalized * Time.deltaTime * speed;
+            gameObject.SendMessage("alignToMap");
+        }
         else
         {
             transform.position = new Vector3(Destination.x, transform.position.y, Destination.y);
