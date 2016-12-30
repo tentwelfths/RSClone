@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapWalk : MonoBehaviour {
     public Transform Player;
+    public Camera miniMap;
 
     //private Collider col;
 
@@ -20,11 +21,21 @@ public class MapWalk : MonoBehaviour {
     public void Walk()
     {
         RaycastHit Ray;
-        if (Physics.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Camera.main.transform.forward, out Ray)) 
+        Debug.Log(Input.mousePosition.x / Screen.width);
+        if (Input.mousePosition.x / Screen.width < 0.75f)
         {
+            if (Physics.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Camera.main.transform.forward, out Ray))
+            {
                 Player.SendMessage("SetDestination", Ray.point + new Vector3(0, 0.75f, 0));
+            }
         }
-
+        else
+        {
+            if (Physics.Raycast(miniMap.ScreenToWorldPoint(Input.mousePosition), miniMap.transform.forward, out Ray))
+            {
+                Player.SendMessage("SetDestination", Ray.point + new Vector3(0, 0.75f, 0));
+            }
+        }
 
     }
 }
