@@ -21,7 +21,6 @@ public class MapWalk : MonoBehaviour {
     public void Walk()
     {
         RaycastHit Ray;
-        Debug.Log(Input.mousePosition.x / Screen.width);
         if (Input.mousePosition.x / Screen.width < 0.75f)
         {
             if (Physics.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Camera.main.transform.forward, out Ray))
