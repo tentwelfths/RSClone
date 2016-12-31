@@ -67,7 +67,7 @@ public class ActionLister : MonoBehaviour
                 Actions.RemoveAt(i);
                 i = 0;
             }
-            }
+        }
     }
 
     void Update()
@@ -111,15 +111,12 @@ public class ActionLister : MonoBehaviour
 
     private void ListActions()
     {
-        for(int i = 0; i < Actions.Count && i < ActionButtonText.Length; i++)
-        {
+        int i = 0;
+        for(; i < Actions.Count && i < ActionButtonText.Length; i++)
             ActionButtonText[i].text = Actions[i].text;
-        }
-        if(Actions.Count < 5)
-        {
-            for (int i = Actions.Count; i < ActionButtonText.Length; i++)
-                ActionButtonText[i].text = "";
-        }
+        for (; i < ActionButtonText.Length; i++)
+            ActionButtonText[i].text = "";
+        
     }
     public void TestFunction()
     {
