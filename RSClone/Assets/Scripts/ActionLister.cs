@@ -20,6 +20,7 @@ public class ActionLister : MonoBehaviour
 
     private void Awake()
     {
+        ToggleActionState();
     }
 
     private static void ResetActionList()
