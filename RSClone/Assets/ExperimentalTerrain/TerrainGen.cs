@@ -69,15 +69,5 @@ public class TerrainGen : MonoBehaviour {
         GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 
-    private void OnDrawGizmos()
-    {
-        if (vertices == null)
-            return;
-        Gizmos.color = Color.black;
-        for(int i = 0; i < vertices.Length; i++)
-        {
-            Gizmos.DrawSphere(vertices[i], 0.1f);
-        }
-    }
 
 }
