@@ -31,4 +31,12 @@ public class MapIcon : MonoBehaviour {
         ico.rectTransform.localScale = new Vector3(1, 1, 1);
     }
 
+    public void HideIcon()
+    {
+    }
+
+    public void ShowIcon()
+    {
+    }
+
 }

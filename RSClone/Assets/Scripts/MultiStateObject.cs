@@ -24,13 +24,10 @@ public class MultiStateObject : MonoBehaviour {
         currState = _toState;
         currStateObject = Instantiate(States[_toState].Model);
         currStateObject.transform.SetParent(transform);
-        Vector3 localpos = currStateObject.transform.localPosition;
-        localpos.x = 0;
-        localpos.z = 0;
-        currStateObject.transform.localPosition = localpos;
+        currStateObject.transform.localPosition = currStateObject.transform.position;
     }
 
-    void SetState(string _toState)
+    public void SetState(string _toState)
     {
         for(int i = 0; i < States.Length; i++)
         {
@@ -44,9 +41,9 @@ public class MultiStateObject : MonoBehaviour {
         Debug.LogError("State \"" + _toState + "\" does not exist!");
     }
 
-    int GetState()
+    public string GetState()
     {
-        return currState;
+        return States[currState].Name;
     }
 
     [System.Serializable]

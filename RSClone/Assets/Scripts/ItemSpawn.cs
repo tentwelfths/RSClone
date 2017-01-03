@@ -13,10 +13,12 @@ public class ItemSpawn : MonoBehaviour {
     private bool collected = false;
     private GameObject newItem;
     private Collider col;
+    private MapIcon ico;
 
 
     // Use this for initialization
     void Start () {
+        ico = gameObject.GetComponent<MapIcon>();
         col = gameObject.GetComponent<Collider>();
         respawnItem();
 	}
@@ -42,6 +44,7 @@ public class ItemSpawn : MonoBehaviour {
         newItem.transform.localPosition = finalpos;
         collected = false;
         col.enabled = true;
+        ico.enabled = true;
     }
 
     void Take()
@@ -52,6 +55,7 @@ public class ItemSpawn : MonoBehaviour {
             countdowntimer = respawnTime * 60.0f;
             Destroy(newItem);
             col.enabled = false;
+            ico.enabled = false;
         }
 
         }
