@@ -11,12 +11,10 @@ public class Inventory : MonoBehaviour {
     public UnityEngine.UI.Image[] itemSlots;
     private static Dictionary<string, Item> itemList = new Dictionary<string, Item>();
 
-
     public void Awake()
     {
         if (itemSlots.Length != 19)
             Debug.LogError("ItemSlots must have 19 members!");
-
         
     }
 
@@ -191,6 +189,8 @@ public class Inventory : MonoBehaviour {
       public string examine;
         //Prefab of the item if it's on the ground
         public GameObject model;
+        // Actions you can do with the item
+        public string[] actions;
     }
 	
 }

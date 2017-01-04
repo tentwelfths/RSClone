@@ -18,9 +18,17 @@ public class ActionLister : MonoBehaviour
     public UnityEngine.UI.Text[] ActionButtonText;
     public UnityEngine.UI.Image ActionMenu;
 
+    private static string useItem;
+
+    public void Use(string Item)
+    {
+        useItem = Item;
+    }
+
     private void Awake()
     {
         ToggleActionState();
+        useItem = "";
     }
 
     private static void ResetActionList()
@@ -70,10 +78,20 @@ public class ActionLister : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
+        // Add Use [Item] -> [Target] to action list
+
         if (currState == ActionState.state_firstaction)
         {
+            FirstActionState();
+        }
+        
+            //Might need some way to break ListActions State here
+    }
+
+    private void FirstActionState()
+    {
             Vector3 topActionPos = Input.mousePosition;
             topAction.rectTransform.position = topActionPos + new Vector3(100, -30, 0);
             if (Actions.Count > 0)
@@ -92,7 +110,7 @@ public class ActionLister : MonoBehaviour
                 {
                     ListActions();
                     currState = ActionState.state_listactions;
-                    ActionMenu.rectTransform.position = topActionPos + new Vector3(0,-ActionMenu.rectTransform.rect.height, 0);
+                    ActionMenu.rectTransform.position = topActionPos + new Vector3(0, -ActionMenu.rectTransform.rect.height, 0);
                     // Move Action List display to mouse position
 
                 }
@@ -100,14 +118,6 @@ public class ActionLister : MonoBehaviour
             else
                 topAction.text = "";
         }
-        else
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-            }
-                
-        }
-    }
 
     private void ListActions()
     {
@@ -118,10 +128,7 @@ public class ActionLister : MonoBehaviour
             ActionButtonText[i].text = "";
         
     }
-    public void TestFunction()
-    {
-        Debug.Log("test");
-    }
+
     public void ExecuteAction(int _ActionIndex)
     {
         if (Actions.Count <= _ActionIndex)
@@ -130,6 +137,8 @@ public class ActionLister : MonoBehaviour
         }
         Actions[_ActionIndex].Execute();
         ToggleActionState();
+
+        useItem = "";
 
         //So that you don't get duplicates of the same action
         //ResetActionList();
