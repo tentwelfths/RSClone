@@ -36,18 +36,18 @@ public class CookingRange : MonoBehaviour {
         //   add item(either burnt form or cooked form)
         for(int i = 0; i < Cookables.Length; i++)
         {
-            if (Inventory.CheckForItem(Cookables[i].input))
+            if (Inventory.inv.CheckForItem(Cookables[i].input))
             {
                 // This is where the delay would go.
-                Inventory.RemoveItem(Cookables[i].input);
+                Inventory.inv.RemoveItem(Cookables[i].input);
                 if (Random.Range(0.0f, 1.0f) > Cookables[i].FailChance)
                 {
-                    Inventory.addItem(Cookables[i].output);
+                    Inventory.inv.addItem(Cookables[i].output);
                     GamePlayLog.LogMessage(Cookables[i].SuccessMessage);
                 }
                 else
                 {
-                    Inventory.addItem(Cookables[i].failOutput);
+                    Inventory.inv.addItem(Cookables[i].failOutput);
                     GamePlayLog.LogMessage(Cookables[i].FailureMessage);
                 }
                 return;

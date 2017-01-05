@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class ItemDictionary : MonoBehaviour {
 
-    public Inventory.Item[] items;
+    public Item[] items;
    
     // Use this for initialization
     void Awake () {
 		for(int i = 0; i < items.Length; i++)
         {
-            Inventory.importItem(items[i]);
+            Inventory.inv.importItem(items[i]);
         }
 	}
 
-    void CreateItem(Inventory.Item _item)
+    void CreateItem(Item _item)
     {
 
     }

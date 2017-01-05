@@ -11,12 +11,12 @@ public class FishingSpot : MonoBehaviour
 
     void Net()
     {
-        if (Inventory.CheckForItem("net"))
+        if (Inventory.inv.CheckForItem("net"))
         {
             Player.SendMessage("SetDestination", hotspot.position);
-            while (!Inventory.CheckInventoryFull())
+            while (!Inventory.inv.CheckInventoryFull())
             {
-                Inventory.addItem("feesh_raw");
+                Inventory.inv.addItem("feesh_raw");
                 GamePlayLog.LogMessage("You manage to catch a.. feesh.");
             }
         }

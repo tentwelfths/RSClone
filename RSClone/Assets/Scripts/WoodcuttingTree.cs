@@ -29,11 +29,11 @@ public class WoodcuttingTree : MonoBehaviour {
 
     public void Chop()
     {
-        if (Inventory.CheckForItem("hatchet_steel"))
+        if (Inventory.inv.CheckForItem("hatchet_steel"))
         {
             if (states.GetState() == "Uncut")
             {
-                if (Inventory.addItem(item))
+                if (Inventory.inv.addItem(item))
                 {
                     countdowntimer = RespawnTime * 60.0f;
                     GamePlayLog.LogMessage(SuccessMessage);

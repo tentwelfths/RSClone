@@ -6,6 +6,6 @@ public class Collectable : MonoBehaviour {
     public string Item;
   private void Collect()
   {
-        Inventory.addItem(Item);
+        Inventory.inv.addItem(Item);
   }
 }

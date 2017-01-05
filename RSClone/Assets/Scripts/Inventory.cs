@@ -4,61 +4,62 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour {
 
-    private static int gold;
-    //private static List<Item> items = new List<Item>();
-    //Probably a dictionary of items?
-    public static ItemSlot[] items = new ItemSlot[19];
-    public UnityEngine.UI.Image[] itemSlots;
-    private static Dictionary<string, Item> itemList = new Dictionary<string, Item>();
+    public static Inventory inv;
 
+    private int gold;
+    public InventoryItem[] itemSlots;
+    private Dictionary<string, Item> itemList = new Dictionary<string, Item>();
+
+    // Initialize inv and make sure the right number of itemslots are present.
     public void Awake()
     {
+        if (inv == null)
+            inv = this;
+        else
+            Debug.LogError("Multiple instances of inventory exist! Delete one");
+
         if (itemSlots.Length != 19)
             Debug.LogError("ItemSlots must have 19 members!");
         
     }
 
+    // Set inventory to empty and gold to 0
     public void Start()
     {
-        // Set gold to 0
-        setGold(0);
 
         // Set all items to null to start
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            items[i].quantity = 0;
-            items[i].item = itemList[""];
+            itemSlots[i].quantity = 0;
+            itemSlots[i].SetItem("");
         }
     }
 
-    public void Update()
-    {
-        UpdateInventory();
-    }
-
+    // Updates sprites in inventory
+    // Called each time an item is added or removed from the inventory
     public void UpdateInventory()
     {
-        // Updates sprites in inventory
         for(int i = 0; i < itemSlots.Length; i++)
         {
-            itemSlots[i].sprite = items[i].item.sprite;
+            itemSlots[i].UpdateItem();
         }
     }
 
     // Returns true if the item was successfully added to inventory.
-    public static bool addItem(string _item)
+    public bool addItem(string _item)
     {
         // Checks if inventory is full
         if (CheckInventoryFull())
             return false;
 
         // Find first empty slot in inventory
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (items[i].item.id == "")
+            if (itemSlots[i].ItemName() == "")
             {
-                items[i].item = lookupItem(_item);
-                GamePlayLog.LogMessage("Picking up " + items[i].item.name);
+                itemSlots[i].SetItem(_item);
+                GamePlayLog.LogMessage("Picking up " + itemList[_item].name);
+                UpdateInventory();
                 return true;
             }
         }
@@ -67,7 +68,7 @@ public class Inventory : MonoBehaviour {
         
     }
 
-    public static bool addItem(string _item, int qty)
+    public bool addItem(string _item, int qty)
     {
         // Checks if inventory already has item
         // Updates item quantity
@@ -81,44 +82,45 @@ public class Inventory : MonoBehaviour {
     }
 
     // Returns true if there are no empty item slots
-    public static bool CheckInventoryFull()
+    public bool CheckInventoryFull()
     {
         // Iterates through item slots
-        for(int i = 0; i < items.Length; i++)
+        for(int i = 0; i < itemSlots.Length; i++)
         {
-            if (items[i].item.id == "")
+            if (itemSlots[i].ItemName() == "")
                 return false;
         }
-        // If quantity is 0
+
         return true;
 
     }
 
     // Checks if the player has an item in their inventory
-    public static bool CheckForItem(string _id)
+    public bool CheckForItem(string _id)
     {
-        for (int i = 0; i < items.Length; ++i)
+        for (int i = 0; i < itemSlots.Length; ++i)
         {
             // Don't bother with empty item slots
             // if player has the item(in any quantity)
-            if (items[i].item.id == _id)
+            if (itemSlots[i].ItemName() == _id)
                 return true;
         }
             return false;
     }
 
     // Removes first instance of an item from player's inventory
-    public static bool RemoveItem(string _toRemove)
+    public bool RemoveItem(string _toRemove)
     {
         //Check that the player has it at all first
         if(!CheckForItem(_toRemove))
         return false;
 
-        for(int i = 0; i < items.Length; i++)
+        for(int i = 0; i < itemSlots.Length; i++)
         {
-            if (items[i].item.id == _toRemove)
+            if (itemSlots[i].ItemName() == _toRemove)
             {
-                items[i].item = lookupItem("");
+                itemSlots[i].SetItem("");
+                UpdateInventory();
                 return true;
             }
         }
@@ -126,71 +128,43 @@ public class Inventory : MonoBehaviour {
         return false;
     }
 
-
-    static int addGold(int _Amt)
-    {
-        gold += _Amt;
-
-        return gold;
-    }
-
-    static int spendGold(int _Amt)
-    {
-        if(gold < _Amt)
-        {
-            GamePlayLog.LogMessage("You don't have enough gold for that!");
-            return -1;
-        }
-
-        gold -= _Amt;
-
-        return gold;
-    }
-
-    static int setGold(int _Amt)
-    {
-        gold = _Amt;
-        return _Amt;
-    }
-
-    public static void importItem(Item _item)
+    // Item Dictionary gettors and settors
+    public void importItem(Item _item)
     {
         itemList.Add(_item.id, _item);
     }
 
-    public static Item lookupItem(string _name)
+    public Item lookupItem(string _name)
     {
         return itemList[_name];
     }
 
-    public struct ItemSlot
-    {
-        public int quantity;
-        public Item item;
-    }
 
-    [System.Serializable]
-    public struct Item
-    {
-      // Name as it appears in-game
-      public string name;
-      // Unique name of this particular item
-      // I don't see this being different from item name usually
-      public string id;
-      // Base price in gold pieces
-      public int cost;
-      // weight in kg
-      public float weight;
-      // whether or not the item is stackable
-      public bool stackable;
-      // The sprite to use for the item
-      public Sprite sprite;
-      //Some sort of list of options in addition to Use and Examine
-      public string examine;
-        //Prefab of the item if it's on the ground
-        public GameObject model;
-        // Actions you can do with the item
-        public string[] actions;
-    }
+
+   
 	
+}
+
+[System.Serializable]
+public struct Item
+{
+    // Name as it appears in-game
+    public string name;
+    // Unique name of this particular item
+    // I don't see this being different from item name usually
+    public string id;
+    // Base price in gold pieces
+    public int cost;
+    // weight in kg
+    public float weight;
+    // whether or not the item is stackable
+    public bool stackable;
+    // The sprite to use for the item
+    public Sprite sprite;
+    //Some sort of list of options in addition to Use and Examine
+    public string examine;
+    //Prefab of the item if it's on the ground
+    public GameObject model;
+    // Actions you can do with the item
+    public Action[] actions;
 }

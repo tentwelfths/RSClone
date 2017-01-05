@@ -35,13 +35,9 @@ public class ItemSpawn : MonoBehaviour {
 
     void respawnItem()
     {
-        newItem = Instantiate(Inventory.lookupItem(item).model);
+        newItem = Instantiate(Inventory.inv.lookupItem(item).model);
         newItem.transform.SetParent(gameObject.transform);
-        Vector3 finalpos = newItem.transform.localPosition;
-        finalpos.x = 0.0f;
-        finalpos.z = 0.0f;
-        finalpos.y = -0.5f + newItem.transform.position.y;
-        newItem.transform.localPosition = finalpos;
+        newItem.transform.localPosition = newItem.transform.position;
         collected = false;
         col.enabled = true;
         ico.enabled = true;
@@ -49,7 +45,7 @@ public class ItemSpawn : MonoBehaviour {
 
     void Take()
            {
-        if (Inventory.addItem(item))
+        if (Inventory.inv.addItem(item))
         {
             collected = true;
             countdowntimer = respawnTime * 60.0f;
