@@ -27,6 +27,8 @@ public class CharacterWalk : MonoBehaviour {
 		distance = 0;
 		if (p != null) {
 			p.FindPath (transform.position, destination);
+		} else {
+			SetLocalGoal (destination);
 		}
     }
 
