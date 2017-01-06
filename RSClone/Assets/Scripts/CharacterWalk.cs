@@ -5,7 +5,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(AligntoMap))]
 public class CharacterWalk : MonoBehaviour {
-
+	private float distance;
+	PathFinder p;
     public float speed = 1.0f;
     private Vector2 Destination;
 
@@ -13,11 +14,20 @@ public class CharacterWalk : MonoBehaviour {
 	void Start () {
         Destination.x = transform.position.x;
         Destination.y = transform.position.z;
+		p = GetComponent<PathFinder> ();
     }
-	
+	public void SetLocalGoal(Vector3 destination){
+		if (destination.y > 10000) {
+			destination = transform.position;
+		}
+		SetDestination(new Vector2(destination.x, destination.z));
+	}
     public void SetDestination(Vector3 destination)
     {
-        SetDestination(new Vector2(destination.x, destination.z));
+		distance = 0;
+		if (p != null) {
+			p.FindPath (transform.position, destination);
+		}
     }
 
     public void SetDestination(Vector2 destination)
@@ -28,6 +38,11 @@ public class CharacterWalk : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
+		if (p != null&&!p.started) {
+			distance += speed / 60f;
+			SetLocalGoal(p.getPoint(distance));
+		}
+
         float deltX = Destination.x - transform.position.x;
         float deltY = Destination.y - transform.position.z;
         if ((deltX * deltX > 0.01f) || (deltY * deltY > 0.01f))
