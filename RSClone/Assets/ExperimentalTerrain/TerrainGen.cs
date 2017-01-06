@@ -16,7 +16,9 @@ public class TerrainGen : MonoBehaviour {
 
     private void Awake()
     {
-        Generate();
+		if (GetComponent<MeshFilter> ().mesh == null) {
+			Generate ();
+		}
     }
 
     private float[] GetHeightMap()
@@ -33,7 +35,7 @@ public class TerrainGen : MonoBehaviour {
         return heights;
     }
 
-    private void Generate()
+	public void Generate()
     {
         GetComponent<MeshFilter>().mesh = mesh = new Mesh();
         mesh.name = "Map";

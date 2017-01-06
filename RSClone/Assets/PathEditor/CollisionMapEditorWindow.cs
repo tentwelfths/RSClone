@@ -18,11 +18,16 @@ public class CollisionMapEditorWindow : Editor {
 			active.AutoMap();
 			active.DisplayMap ();
 		}
+		if (GUILayout.Button ("Display Map")) {
+			active.DisplayMap ();
+		}
 		if (GUILayout.Button ("Hide map")) {
 			HideMap (active);
 		
 		}
-
+		if (GUILayout.Button ("Commit Map")) {
+			active.CommitMap ();
+		}
 
 
 	}
