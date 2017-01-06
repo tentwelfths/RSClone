@@ -2,39 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CookingRange : MonoBehaviour {
+public class Campfire : MonoBehaviour {
 
-    public Transform Hotspot;
-
+    public bool permanent = false;
+    public float despawnTime;
     public CookingIO[] Cookables;
-    
-    // Replace this prior to online implementation!!
-    public GameObject Player;
 
-	// Use this for initialization
-	void Start ()
+
+
+    private float despawnCountdown;
+
+    private void Awake()
     {
-        if (Hotspot == null)
-            Debug.LogError("No Hotspot initialized for " + gameObject.name);
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        despawnCountdown = despawnTime;
+    }
+
+    private void Update()
     {
-		
-	}
+        if (!permanent)
+        {
+            despawnCountdown -= Time.deltaTime;
+            if (despawnCountdown <= 0.0f)
+                Destroy(gameObject);
+        }
+    }
 
     public void Cook()
     {
-        // Move player to cooking range
-        Player.SendMessage("SetDestination", Hotspot.position);
+        // Move player to campfire
 
         // Iterate through list of cookable items
         //   if player has the cookable item
         //   remove it from inventory
         //   roll chance to burn the item
         //   add item(either burnt form or cooked form)
-        for(int i = 0; i < Cookables.Length; i++)
+        for (int i = 0; i < Cookables.Length; i++)
         {
             if (Inventory.inv.CheckForItem(Cookables[i].input))
             {
@@ -56,15 +58,16 @@ public class CookingRange : MonoBehaviour {
         GamePlayLog.LogMessage("You have nothing to cook!");
     }
 
-}
-
-[System.Serializable]
-public struct CookingIO
-{
-    public string input;
-    public string output;
-    public string failOutput;
-    public float FailChance;
-    public string SuccessMessage;
-    public string FailureMessage;
+    private void Feed()
+    {
+        if (Inventory.inv.CheckForItem("logs"))
+        {
+            // This is where the delay would go.
+            Inventory.inv.RemoveItem("logs");
+            despawnCountdown += 30.0f;
+            GamePlayLog.LogMessage("You toss some logs into the fire.");
+            return;
+        }
+        GamePlayLog.LogMessage("You have nothing to burn!");
+    }
 }
