@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CookingRange : MonoBehaviour {
+public class CookingRange : MonoBehaviour
+{
 
     public Transform Hotspot;
 
     public CookingIO[] Cookables;
-    
+
     // Replace this prior to online implementation!!
     public GameObject Player;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         if (Hotspot == null)
             Debug.LogError("No Hotspot initialized for " + gameObject.name);
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+
+    }
 
     public void Cook()
     {
@@ -34,7 +35,7 @@ public class CookingRange : MonoBehaviour {
         //   remove it from inventory
         //   roll chance to burn the item
         //   add item(either burnt form or cooked form)
-        for(int i = 0; i < Cookables.Length; i++)
+        for (int i = 0; i < Cookables.Length; i++)
         {
             if (Inventory.inv.CheckForItem(Cookables[i].input))
             {
@@ -55,8 +56,6 @@ public class CookingRange : MonoBehaviour {
         }
         GamePlayLog.LogMessage("You have nothing to cook!");
     }
-
-    
 }
 
 [System.Serializable]
