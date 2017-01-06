@@ -56,14 +56,16 @@ public class CookingRange : MonoBehaviour {
         GamePlayLog.LogMessage("You have nothing to cook!");
     }
 
-    [System.Serializable]
-    public struct CookingIO
-    {
-        public string input;
-        public string output;
-        public string failOutput;
-        public float FailChance;
-        public string SuccessMessage;
-        public string FailureMessage;
-    }
+    
+}
+
+[System.Serializable]
+public struct CookingIO
+{
+    public string input;
+    public string output;
+    public string failOutput;
+    public float FailChance;
+    public string SuccessMessage;
+    public string FailureMessage;
 }
