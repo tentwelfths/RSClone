@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/TestMap.unity
+- path: Assets/TestMapLarge.unity
   isLoaded: 1
   isActive: 1
