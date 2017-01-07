@@ -24,7 +24,7 @@ public class CharacterWalk : MonoBehaviour {
 	}
     public void SetDestination(Vector3 destination)
     {
-		distance = 0;
+		distance = 0.5f;
 		if (p != null) {
 			p.FindPath (transform.position, destination);
 		} else {

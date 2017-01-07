@@ -315,6 +315,30 @@ public class PathFinder : MonoBehaviour {
 			newPaths.Add (newPath);
 			//Debug.Log ("west");
 		}
+		if (last.rules [3] && last.x > 0 && last.y < grid.GetLength (1) - 1 && grid [last.x - 1, last.y].rules [0] && grid [last.x - 1, last.y + 1].rules [1]&&grid[last.x-1,last.y+1].active) {
+			List<CollisionPoint> newPath = new List<CollisionPoint> (seed);
+			newPath.Add (grid [last.x-1, last.y+1]);
+			grid [last.x-1, last.y+1].active = false;
+			newPaths.Add (newPath);	
+		}
+		if (last.rules [0] && last.rules [1] && last.x < grid.GetLength (0) - 1 && last.y < grid.GetLength (1) - 1 && grid [last.x, last.y + 1].rules [1] && grid [last.x + 1, last.y].rules [0]&&grid[last.x+1,last.y+1].active) {
+			List<CollisionPoint> newPath = new List<CollisionPoint> (seed);
+			newPath.Add (grid [last.x+1, last.y+1]);
+			grid [last.x+1, last.y+1].active = false;
+			newPaths.Add (newPath);	
+		}
+		if(last.rules[1]&&last.rules[2]&&last.x<grid.GetLength(0)-1&&last.y>0&&grid[last.x+1,last.y-1].rules[0]&&grid[last.x+1,last.y-1].rules[3]&&grid[last.x+1,last.y-1].active){
+			List<CollisionPoint> newPath = new List<CollisionPoint> (seed);
+			newPath.Add (grid [last.x+1, last.y-1]);
+			grid [last.x+1, last.y-1].active = false;
+			newPaths.Add (newPath);	
+		}
+		if (last.rules [2] && last.rules [3] && last.x > 0 && last.y > 0 && grid [last.x - 1, last.y - 1].rules [0] && grid [last.x - 1, last.y - 1].rules [1] && grid [last.x - 1, last.y - 1].active) {
+			List<CollisionPoint> newPath = new List<CollisionPoint> (seed);
+			newPath.Add (grid [last.x-1, last.y-1]);
+			grid [last.x-1, last.y-1].active = false;
+			newPaths.Add (newPath);	
+		}
 		return newPaths;
 	}
 	bool CheckAdj(List<List<CollisionPoint>> clusterA, List<List<CollisionPoint>> clusterB,out List<CollisionPoint> result){
