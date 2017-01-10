@@ -108,6 +108,16 @@ public class Inventory : MonoBehaviour {
             return false;
     }
 
+    // Check for an array of items
+    public bool CheckForItem(string[] _id)
+    {
+        for(int i = 0; i < _id.Length; i++)
+            if (!CheckForItem(_id[i]))
+                return false;
+
+        return true;
+    }
+
     // Removes first instance of an item from player's inventory
     public bool RemoveItem(string _toRemove)
     {
