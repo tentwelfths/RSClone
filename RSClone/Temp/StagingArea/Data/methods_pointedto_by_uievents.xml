@@ -1,0 +1,33 @@
+<linker>
+	<assembly fullname="Assembly-CSharp">
+		<type fullname="InventoryItem">
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+			<method name="ListActions"/>
+		</type>
+		<type fullname="ActionLister">
+			<method name="ExecuteAction"/>
+			<method name="ExecuteAction"/>
+			<method name="ExecuteAction"/>
+			<method name="ToggleActionState"/>
+			<method name="ExecuteAction"/>
+			<method name="ExecuteAction"/>
+		</type>
+	</assembly>
+</linker>
