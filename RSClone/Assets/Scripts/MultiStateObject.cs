@@ -11,7 +11,7 @@ public class MultiStateObject : MonoBehaviour {
 
     private void Awake()
     {
-        currStateObject = Instantiate(States[0].Model);
+        Destroy(transform.GetChild(0).gameObject);
         SetState(initialState);
     }
 
@@ -19,7 +19,8 @@ public class MultiStateObject : MonoBehaviour {
     // For the love of God don't use SetState(int) unless you have to!
 	private void SetState(int _toState)
     {
-        Destroy(currStateObject);
+        if(currStateObject)
+            Destroy(currStateObject);
 
         currState = _toState;
         currStateObject = Instantiate(States[_toState].Model);

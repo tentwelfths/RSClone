@@ -6,6 +6,8 @@ public class Inventory : MonoBehaviour {
 
     public static Inventory inv;
 
+    public GameObject bonfire;
+
     private int gold;
     public InventoryItem[] itemSlots;
     private Dictionary<string, Item> itemList = new Dictionary<string, Item>();

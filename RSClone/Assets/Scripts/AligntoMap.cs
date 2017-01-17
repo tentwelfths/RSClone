@@ -5,10 +5,12 @@ using UnityEngine;
 public class AligntoMap : MonoBehaviour {
 
     public LayerMask MapLayer;
+    public bool Aligned = false;
 
 	// Use this for initialization
 	void Start () {
-        alignToMap();
+        if(!Aligned)
+            alignToMap();
 	}
 	
     public void alignToMap()
@@ -18,5 +20,6 @@ public class AligntoMap : MonoBehaviour {
         {
             gameObject.transform.position = hit.point;
         }
+        Aligned = true;
     }
 }

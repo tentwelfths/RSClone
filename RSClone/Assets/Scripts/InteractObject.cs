@@ -41,6 +41,7 @@ public class Action
 
     public void Execute()
     {
-        obj.SendMessage(funct);
+        if(obj)
+            obj.SendMessage(funct);
     }
 }

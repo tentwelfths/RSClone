@@ -5,6 +5,7 @@ using UnityEngine;
 public class InventoryItem : MonoBehaviour {
     public int Index = 0;
     public int quantity = 0;
+
     private string item;
     private Action[] actions;
     private UnityEngine.UI.Image image;
@@ -87,6 +88,24 @@ public class InventoryItem : MonoBehaviour {
 
     public void Light()
     {
+        // Check for tinderbox
+        Instantiate(Inventory.inv.bonfire, Player.character.transform.position, Quaternion.identity);
+        Inventory.inv.RemoveItem(item);
+        GamePlayLog.LogMessage("You light a bonfire");
+    }
 
+    public void Carve()
+    {
+        // Check for knife
+        if(Inventory.inv.CheckForItem("knife"))
+        {
+            Inventory.inv.RemoveItem(item);
+            GamePlayLog.LogMessage("You carve the logs into a crude arrow");
+            Inventory.inv.addItem("arrow_plain");
+        }
+        else
+        {
+            GamePlayLog.LogMessage("You don't have a knife to carve these logs!");
+        }
     }
 }
