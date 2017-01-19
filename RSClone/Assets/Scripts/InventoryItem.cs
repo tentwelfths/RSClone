@@ -86,6 +86,26 @@ public class InventoryItem : MonoBehaviour {
         //Set outline to white
     }
 
+    public void Crush()
+    {
+        if (!Inventory.inv.CheckForItem("pestle"))
+        {
+            GamePlayLog.LogMessage("You don't have a pestle and mortar to crush this item.");
+            return;
+        }
+
+        //Check what item you're crushing
+        if(item == "seashell")
+        {
+            //Remove it
+            Inventory.inv.RemoveItem(item);
+            GamePlayLog.LogMessage("You crush the seashell to dust.");
+            Inventory.inv.addItem("seashell_dust");
+            //Add crushed version
+        }
+
+    }
+
     public void Light()
     {
         // Check for tinderbox
