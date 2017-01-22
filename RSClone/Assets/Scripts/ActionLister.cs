@@ -6,6 +6,8 @@ using UnityEngine;
 public class ActionLister : MonoBehaviour
 {
 
+    public static ActionLister ins;
+
     private enum ActionState
     {
         state_firstaction,
@@ -27,6 +29,11 @@ public class ActionLister : MonoBehaviour
 
     private void Awake()
     {
+        if (ins != null)
+            Debug.LogError("Only one ActionLister per scene");
+
+        ins = this;
+
         ToggleActionState();
         useItem = "";
     }

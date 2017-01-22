@@ -83,6 +83,7 @@ public class InventoryItem : MonoBehaviour {
     public void Use()
     {
         //Set ActionLister's state to useItem
+        ActionLister.ins.Use(item);
         //Set outline to white
     }
 
