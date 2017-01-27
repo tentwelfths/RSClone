@@ -16,4 +16,16 @@ public class WaterSource : MonoBehaviour {
                 return;
             }
     }
+
+    void UseItem()
+    {
+        for (int i = 0; i < fillableItems.Length; i++)
+            if (ActionLister.ins.useItem == fillableItems[i])
+            {
+                Fill();
+                return;
+            }
+
+        GamePlayLog.LogMessage("Nothing interesting happens.");
+    }
 }
