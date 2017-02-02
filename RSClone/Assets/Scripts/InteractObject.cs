@@ -6,22 +6,33 @@ public class InteractObject : MonoBehaviour {
 
     public Action[] Options;
 
-    private void OnMouseEnter()
+    public void Awake()
     {
-        if (Options[0] != null)
-        {
-            ActionLister.AddActions(Options);
-
-        }
-        else
-        {
-            Debug.LogError("No Options on game object " + gameObject.name);
-        }
+        // Idiot-proofing.
+        for (int i = 0; i < Options.Length; i++)
+            if (Options[i].obj == null)
+            {
+                Debug.LogWarning("Object " + gameObject.name + " has null objects in its actions list. Temporarily setting them to self.");
+                Options[i].obj = gameObject;
+            }
+                
     }
 
-    private void OnMouseExit()
+    public void ClearNullActions()
     {
-        ActionLister.RemoveActions(gameObject);
+        for (int i = 0; i < Options.Length; i++)
+            if (Options[i].obj == null)
+            {
+                Options[i].obj = gameObject;
+            }
+    }
+
+    public void SendActions()
+    {
+        if (Options[0] == null)
+            Debug.LogError("No Options on game object " + gameObject.name);
+
+        ActionLister.ins.AddActions(Options);
     }
 
     public bool isAdjacentTo(GameObject other)
@@ -41,6 +52,8 @@ public class Action
 
     public void Execute()
     {
-        obj.SendMessage(funct);
+        //Debug.Log("Executing " + funct + " " + obj.name);
+        if(obj)
+            obj.SendMessage(funct);
     }
 }

@@ -1,0 +1,380 @@
+box
+Box
+1
+1
+False
+It's a box.
+Item_Box (UnityEngine.Sprite)
+null
+0
+ashes
+Ashes
+0
+0
+False
+
+Item_AshLump (UnityEngine.Sprite)
+Ashes (UnityEngine.GameObject)
+0
+net
+Net
+10
+1
+False
+Look at this net, that I just found.
+Item_Net (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+2
+Drop
+Drop Net
+Examine
+Examine Net
+feesh_raw
+Raw Feesh
+1
+2
+False
+Ew, it's a raw feesh.
+Item_RawFeesh (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+feesh_cooked
+Cooked Feesh
+10
+1
+False
+Even cooked it's still kinda gross.
+Item_CookedFeesh (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+hatchet_steel
+Steel Hatchet
+10
+2
+False
+A sharp hatchet made of steel.
+Item_Hatchet_Steel (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+logs
+Logs
+1
+5
+False
+A bundle of logs.
+Item_Logs (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+3
+Examine
+Examine Logs
+Carve
+Carve Logs
+Light
+Light Logs
+feesh_burnt
+Burnt Feesh
+0
+1
+False
+Now even less edible.
+Item_BurntFeesh (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+ore_copper
+Copper Ore
+0
+1
+False
+Unrefined copper ore.
+Item_Ore_Copper (UnityEngine.Sprite)
+null
+0
+ore_tin
+Tin Ore
+0
+1
+False
+Unrefined tin ore.
+Item_Ore_Tin (UnityEngine.Sprite)
+null
+0
+pickaxe_steel
+Steel Pickaxe
+0
+1
+False
+A pickaxe made from sturdy steel.
+Item_Pickaxe_Steel (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+knife
+Steel Knife
+0
+1
+False
+A sharp knife for whittling.
+Item_Knife (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+1
+Examine
+Examine Steel Knife
+arrow_plain
+Wooden Arrow
+0
+1
+False
+An unfletched, simple arrow.
+Item_Arrow_Plain (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+1
+Examine
+Examine Wooden Arrow
+seashell
+Seashell
+0
+1
+False
+Impossible to sell down by the seashore.
+Item_Seashell (UnityEngine.Sprite)
+Seashell (UnityEngine.GameObject)
+2
+Examine
+Examine Seashell
+Crush
+Crush Seashell
+seashell_dust
+Seashell Dust
+0
+1
+True
+No longer a home for marine life.
+Item_GroundSeashell (UnityEngine.Sprite)
+SeashellDust (UnityEngine.GameObject)
+1
+Examine
+Examine Seashell Dust
+pestle
+Pestle and Mortar
+0
+1
+False
+For grinding stuff up.
+Item_PestleandMortar (UnityEngine.Sprite)
+SeashellDust (UnityEngine.GameObject)
+1
+Examine
+Examine Wooden Arrow
+vial
+Empty Vial
+0
+1
+False
+An empty flask.
+Item_Vial_Empty (UnityEngine.Sprite)
+Vial (UnityEngine.GameObject)
+1
+Examine
+Vial
+vial_water
+Vial of Water
+0
+1
+False
+An empty flask.
+Item_Vial_Water (UnityEngine.Sprite)
+Vial_Water (UnityEngine.GameObject)
+2
+Examine
+Examine Vial of Water
+Empty
+Empty Vial of Water
+box
+Box
+1
+1
+False
+It's a box.
+Item_Box (UnityEngine.Sprite)
+null
+0
+ashes
+Ashes
+0
+0
+False
+
+Item_AshLump (UnityEngine.Sprite)
+Ashes (UnityEngine.GameObject)
+0
+net
+Net
+10
+1
+False
+Look at this net, that I just found.
+Item_Net (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+2
+Drop
+Drop Net
+Examine
+Examine Net
+feesh_raw
+Raw Feesh
+1
+2
+False
+Ew, it's a raw feesh.
+Item_RawFeesh (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+feesh_cooked
+Cooked Feesh
+10
+1
+False
+Even cooked it's still kinda gross.
+Item_CookedFeesh (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+hatchet_steel
+Steel Hatchet
+10
+2
+False
+A sharp hatchet made of steel.
+Item_Hatchet_Steel (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+logs
+Logs
+1
+5
+False
+A bundle of logs.
+Item_Logs (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+3
+Examine
+Examine Logs
+Carve
+Carve Logs
+Light
+Light Logs
+feesh_burnt
+Burnt Feesh
+0
+1
+False
+Now even less edible.
+Item_BurntFeesh (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+ore_copper
+Copper Ore
+0
+1
+False
+Unrefined copper ore.
+Item_Ore_Copper (UnityEngine.Sprite)
+null
+0
+ore_tin
+Tin Ore
+0
+1
+False
+Unrefined tin ore.
+Item_Ore_Tin (UnityEngine.Sprite)
+null
+0
+pickaxe_steel
+Steel Pickaxe
+0
+1
+False
+A pickaxe made from sturdy steel.
+Item_Pickaxe_Steel (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+0
+knife
+Steel Knife
+0
+1
+False
+A sharp knife for whittling.
+Item_Knife (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+1
+Examine
+Examine Steel Knife
+arrow_plain
+Wooden Arrow
+0
+1
+False
+An unfletched, simple arrow.
+Item_Arrow_Plain (UnityEngine.Sprite)
+Net (UnityEngine.GameObject)
+1
+Examine
+Examine Wooden Arrow
+seashell
+Seashell
+0
+1
+False
+Impossible to sell down by the seashore.
+Item_Seashell (UnityEngine.Sprite)
+Seashell (UnityEngine.GameObject)
+2
+Examine
+Examine Seashell
+Crush
+Crush Seashell
+seashell_dust
+Seashell Dust
+0
+1
+True
+No longer a home for marine life.
+Item_GroundSeashell (UnityEngine.Sprite)
+SeashellDust (UnityEngine.GameObject)
+1
+Examine
+Examine Seashell Dust
+pestle
+Pestle and Mortar
+0
+1
+False
+For grinding stuff up.
+Item_PestleandMortar (UnityEngine.Sprite)
+SeashellDust (UnityEngine.GameObject)
+1
+Examine
+Examine Wooden Arrow
+vial
+Empty Vial
+0
+1
+False
+An empty flask.
+Item_Vial_Empty (UnityEngine.Sprite)
+Vial (UnityEngine.GameObject)
+1
+Examine
+Vial
+vial_water
+Vial of Water
+0
+1
+False
+A vial filled with water.
+Item_Vial_Water (UnityEngine.Sprite)
+Vial_Water (UnityEngine.GameObject)
+2
+Examine
+Examine Vial of Water
+Empty
+Empty Vial of Water

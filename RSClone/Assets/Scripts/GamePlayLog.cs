@@ -14,7 +14,7 @@ public class GamePlayLog : MonoBehaviour {
         {
             Log[i] = " ";
         }
-        LogMessage("Welcome to Prune's Scrape");
+        LogMessage("Welcome to Trilune");
 	}
 
     public static void LogMessage(string newMessage)
