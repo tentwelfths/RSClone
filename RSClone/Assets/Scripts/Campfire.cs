@@ -6,7 +6,7 @@ public class Campfire : MonoBehaviour {
 
     public bool permanent = false;
     public float despawnTime;
-    public CookingIO[] Cookables;
+    public ItemIO[] Cookables;
 
 
 
@@ -32,28 +32,10 @@ public class Campfire : MonoBehaviour {
         // Move player to campfire
 
         // Iterate through list of cookable items
-        //   if player has the cookable item
-        //   remove it from inventory
-        //   roll chance to burn the item
-        //   add item(either burnt form or cooked form)
         for (int i = 0; i < Cookables.Length; i++)
         {
-            if (Inventory.inv.CheckForItem(Cookables[i].input))
-            {
-                // This is where the delay would go.
-                Inventory.inv.RemoveItem(Cookables[i].input);
-                if (Random.Range(0.0f, 1.0f) > Cookables[i].FailChance)
-                {
-                    Inventory.inv.addItem(Cookables[i].output);
-                    GamePlayLog.LogMessage(Cookables[i].SuccessMessage);
-                }
-                else
-                {
-                    Inventory.inv.addItem(Cookables[i].failOutput);
-                    GamePlayLog.LogMessage(Cookables[i].FailureMessage);
-                }
+            if (Cookables[i].Execute())
                 return;
-            }
         }
         GamePlayLog.LogMessage("You have nothing to cook!");
     }
@@ -69,5 +51,20 @@ public class Campfire : MonoBehaviour {
             return;
         }
         GamePlayLog.LogMessage("You have nothing to burn!");
+    }
+
+    public void UseItem()
+    {
+        for (int i = 0; i < Cookables.Length; i++)
+        {
+            for (int j = 0; j < Cookables[i].inputItems.Length; j++)
+            {
+                if (Cookables[i].inputItems[j] == ActionLister.ins.useItem)
+                {
+                    Cookables[i].Execute();
+                    return;
+                }
+            }
+        }
     }
 }

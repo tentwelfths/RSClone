@@ -7,10 +7,9 @@ public class CookingRange : MonoBehaviour
 
     public Transform Hotspot;
 
-    public CookingIO[] Cookables;
+    public ItemIO[] Cookables;
 
-    // Replace this prior to online implementation!!
-    public GameObject Player;
+    
 
     // Use this for initialization
     void Start()
@@ -28,43 +27,29 @@ public class CookingRange : MonoBehaviour
     public void Cook()
     {
         // Move player to cooking range
-        Player.SendMessage("SetDestination", Hotspot.position);
+        Player.character.SendMessage("SetDestination", Hotspot.position);
 
         // Iterate through list of cookable items
-        //   if player has the cookable item
-        //   remove it from inventory
-        //   roll chance to burn the item
-        //   add item(either burnt form or cooked form)
         for (int i = 0; i < Cookables.Length; i++)
         {
-            if (Inventory.inv.CheckForItem(Cookables[i].input))
-            {
-                // This is where the delay would go.
-                Inventory.inv.RemoveItem(Cookables[i].input);
-                if (Random.Range(0.0f, 1.0f) > Cookables[i].FailChance)
-                {
-                    Inventory.inv.addItem(Cookables[i].output);
-                    GamePlayLog.LogMessage(Cookables[i].SuccessMessage);
-                }
-                else
-                {
-                    Inventory.inv.addItem(Cookables[i].failOutput);
-                    GamePlayLog.LogMessage(Cookables[i].FailureMessage);
-                }
+            if (Cookables[i].Execute())
                 return;
-            }
         }
         GamePlayLog.LogMessage("You have nothing to cook!");
     }
-}
 
-[System.Serializable]
-public struct CookingIO
-{
-    public string input;
-    public string output;
-    public string failOutput;
-    public float FailChance;
-    public string SuccessMessage;
-    public string FailureMessage;
+    public void UseItem()
+    {
+        for (int i = 0; i < Cookables.Length; i++)
+        {
+            for (int j = 0; j < Cookables[i].inputItems.Length; j++)
+            {
+                if (Cookables[i].inputItems[j] == ActionLister.ins.useItem)
+                {
+                    Cookables[i].Execute();
+                    return;
+                }
+            }
+        }
+    }
 }

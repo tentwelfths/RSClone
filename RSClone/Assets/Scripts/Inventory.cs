@@ -83,6 +83,18 @@ public class Inventory : MonoBehaviour {
 
     }
 
+    public bool addItem(string[] _item)
+    {
+        if(ItemSlotsFree() < _item.Length)
+            return false;
+
+        for (int i = 0; i < _item.Length; i++)
+            if (!addItem(_item[i]))
+                return false;
+
+        return true;
+    }
+
     // Returns true if there are no empty item slots
     public bool CheckInventoryFull()
     {
@@ -95,6 +107,18 @@ public class Inventory : MonoBehaviour {
 
         return true;
 
+    }
+
+    public int ItemSlotsFree()
+    {
+        int count = 0;
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            if (itemSlots[i].ItemName() == "")
+                count++;
+        }
+
+        return count;
     }
 
     // Checks if the player has an item in their inventory
@@ -118,6 +142,16 @@ public class Inventory : MonoBehaviour {
                 return false;
 
         return true;
+    }
+
+    // Removes array of items. If the player doesn't have the given item, it stops midway.
+    public bool RemoveItem(string[] _toRemove)
+    {
+        for (int i = 0; i < _toRemove.Length; i++)
+            if (!RemoveItem(_toRemove[i]))
+                return false;
+
+            return true;
     }
 
     // Removes first instance of an item from player's inventory
@@ -179,4 +213,43 @@ public struct Item
     public GameObject model;
     // Actions you can do with the item
     public Action[] actions;
+}
+
+[System.Serializable]
+public class ItemIO
+{
+    public string[] inputItems;
+    public string successMessage;
+    public string[] outputItems;
+    public float failureChance = 0.0f;
+    public string failureMessage;
+    public string[] failureOutputItems;
+
+    public bool Execute()
+    {
+        // Do you have the items?
+        if (!Inventory.inv.CheckForItem(inputItems))
+            return false;
+
+        // Do you have the space when it's all gonna be finished?
+        if (Inventory.inv.ItemSlotsFree() + inputItems.Length < outputItems.Length
+         || Inventory.inv.ItemSlotsFree() + inputItems.Length < failureOutputItems.Length)
+            return false;
+
+        Inventory.inv.RemoveItem(inputItems);
+        if (Random.Range(0.0f, 1.0f) > failureChance)
+        {
+            // Success
+            GamePlayLog.LogMessage(successMessage);
+            Inventory.inv.addItem(outputItems);
+        }
+        else
+        {
+            // Failure
+            GamePlayLog.LogMessage(failureMessage);
+            Inventory.inv.addItem(failureOutputItems);
+        }
+
+            return true;
+    }
 }

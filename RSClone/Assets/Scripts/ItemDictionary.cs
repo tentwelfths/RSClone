@@ -10,6 +10,11 @@ public class ItemDictionary : MonoBehaviour {
     void Awake () {
 		for(int i = 0; i < items.Length; i++)
         {
+            if (items[i].model == null)
+            {
+                Debug.LogError("No Model for " + items[i].name);
+            }
+                
             Inventory.inv.importItem(items[i]);
         }
 	}

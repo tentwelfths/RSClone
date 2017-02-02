@@ -110,7 +110,11 @@ public class InventoryItem : MonoBehaviour {
 
     public void UseItem()
     {
-        if(CheckPair(ActionLister.ins.useItem, item, "seashell_dust", "vial_water"))
+        if (item == "")
+            return;
+        string useItem = ActionLister.ins.useItem;
+
+        if(CheckPair(useItem, item, "seashell_dust", "vial_water"))
         {
             Inventory.inv.RemoveItem("seashell_dust");
             Inventory.inv.RemoveItem("vial_water");
@@ -118,6 +122,22 @@ public class InventoryItem : MonoBehaviour {
             GamePlayLog.LogMessage("You sprinkle the seashell dust into the vial of water.");
             Inventory.inv.addItem("potion_seashell_unf");
             // Add unfinished seashell potion
+            return;
+        }
+
+        if(CheckPair(useItem, item, "potion_seashell_unf", "leaf_mint"))
+        {
+            Inventory.inv.RemoveItem("potion_seashell_unf");
+            Inventory.inv.RemoveItem("leaf_mint");
+
+            GamePlayLog.LogMessage("You add the mint leaf to the potion.");
+            Inventory.inv.addItem("potion_def_unf");
+            return;
+        }
+
+        if(CheckPair(useItem, item, "tinderbox", "logs"))
+        {
+            Light();
             return;
         }
 
@@ -160,15 +180,22 @@ public class InventoryItem : MonoBehaviour {
     public void Light()
     {
         // Check for tinderbox
-        Instantiate(Inventory.inv.bonfire, Player.character.transform.position, Quaternion.identity);
-        Inventory.inv.RemoveItem(item);
-        GamePlayLog.LogMessage("You light a bonfire");
+        if (Inventory.inv.CheckForItem("tinderbox"))
+        {
+            Instantiate(Inventory.inv.bonfire, Player.character.transform.position, Quaternion.identity);
+            Inventory.inv.RemoveItem("logs");
+            GamePlayLog.LogMessage("You light a bonfire");
+        }
+        else
+        {
+            GamePlayLog.LogMessage("You don't have a tinderbox to light these logs!");
+        }
     }
 
     public void Carve()
     {
         // Check for knife
-        if(Inventory.inv.CheckForItem("knife"))
+        if(Inventory.inv.CheckForItem("knife") || Inventory.inv.CheckForItem("knife_bronze"))
         {
             Inventory.inv.RemoveItem("logs");
             GamePlayLog.LogMessage("You carve the logs into a crude arrow");
