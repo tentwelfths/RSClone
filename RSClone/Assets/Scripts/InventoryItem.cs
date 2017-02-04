@@ -45,6 +45,7 @@ public class InventoryItem : MonoBehaviour {
         for(int i = 0; i < currItem.actions.Length; i++)
         {
             actions[i] = currItem.actions[i];
+            actions[i].text = actions[i].text + " " + currItem.name;
             actions[i].obj = gameObject;
         }
 
