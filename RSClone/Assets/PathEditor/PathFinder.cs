@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading;
 class CollisionPoint{
 	public bool active = true;
 	public int x;
@@ -32,7 +31,7 @@ public class PathFinder : MonoBehaviour {
 	List<GameObject> debugMarkers = new List<GameObject>();
 	// Use this for initialization
 	void Start () {
-		
+
 	}
 	public Vector3 getPoint(float distance){
 		if (path.Count > 0) {
@@ -41,7 +40,7 @@ public class PathFinder : MonoBehaviour {
 				for (int i = 1; distance > 0; i++) {
 					if (i >= path.Count) {
 						return path [path.Count - 1];
-					
+
 					}
 
 
@@ -68,8 +67,7 @@ public class PathFinder : MonoBehaviour {
 			if (debug) {
 				FindPathDebug ();
 			} else {
-				Thread t = new Thread (FindPathThread);
-				t.Start ();
+				StartCoroutine ("FindPathThread");
 			}
 		}
 	}
@@ -178,9 +176,10 @@ public class PathFinder : MonoBehaviour {
 				debugMarkers.Add (obj);
 			}
 		}
-	
+
 	}
-	public void FindPathThread(){
+	IEnumerator FindPathThread(){
+		Debug.Log ("Starting");
 		float xDist = Mathf.Abs (target.x - position.x);
 		float yDist = Mathf.Abs (target.z - position.z);
 		int squaresX = (int)(xDist / CollisionMapEditor.globalSquareSize) + 1;
@@ -205,7 +204,7 @@ public class PathFinder : MonoBehaviour {
 			if (!points [i].rules [0] && !points [i].rules [1] && !points [i].rules [2] && !points [i].rules [3]) {
 				//points.RemoveAt (i);
 				//i--;
-			//	points[i].active = false;
+				//	points[i].active = false;
 			} else {
 				float playDist = (points [i].position - position).sqrMagnitude;
 				float targDist = (points [i].position - target).sqrMagnitude;
@@ -219,6 +218,7 @@ public class PathFinder : MonoBehaviour {
 				}
 			}
 		}
+		yield return null;
 		List<List<CollisionPoint>> pathClusterA = new List<List<CollisionPoint>>();
 		List<List<CollisionPoint>> pathClusterB = new List<List<CollisionPoint>>();
 		List<CollisionPoint> pathA = new List<CollisionPoint> ();
@@ -234,16 +234,25 @@ public class PathFinder : MonoBehaviour {
 		for (int i = 0; true; i++) {
 			Debug.Log ("Wave " + i);
 			Debug.Log ("Cluster A " + pathClusterA.Count);
+
 			if (CheckAdj (pathClusterA, pathClusterB, out result)) {
 				Debug.Log ("Found path after " + i + " waves");
 				break;
 			}
+			yield return null;
+
 			xpandAllPaths (pathClusterA,pointGrid);
+			yield return null;
+
 			if (CheckAdj (pathClusterA, pathClusterB, out result)) {
 				Debug.Log ("Found path after " + i + " waves");
 				break;
 			}
+			yield return null;
+
 			xpandAllPaths (pathClusterB, pointGrid);
+			yield return null;
+
 			Debug.Log ("Cluster b " + pathClusterB.Count);
 			//Debug.Log ("A:" + pathClusterA == null);
 			//Debug.Log ("B:" + pathClusterB == null);
@@ -253,13 +262,13 @@ public class PathFinder : MonoBehaviour {
 				Debug.Log ("dead end");
 				path.Clear ();
 				started = false;
-				return;
+				yield break;
 			}
 			if (i == maxGenerations) {
 				Debug.Log ("found no path within time");
 				path.Clear ();
 				started = false;
-				return;
+				yield break;
 			}
 		}
 		path.Clear ();
@@ -278,8 +287,8 @@ public class PathFinder : MonoBehaviour {
 		seed.AddRange (newList);
 
 
-	
-	
+
+
 	}
 	List<List<CollisionPoint>> xpandPath(List<CollisionPoint> seed, CollisionPoint[,] grid){
 		if (seed.Count == 0) {
@@ -358,7 +367,7 @@ public class PathFinder : MonoBehaviour {
 						result = newPath;
 						return true;
 					}
-				
+
 				}
 			}
 		}
@@ -367,6 +376,6 @@ public class PathFinder : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 }
