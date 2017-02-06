@@ -16,7 +16,6 @@ public class CollisionMapEditorWindow : Editor {
 		base.OnInspectorGUI ();
 		if (GUILayout.Button ("Create new map")) {
 			active.AutoMap();
-			active.DisplayMap ();
 		}
 		if (GUILayout.Button ("Display Map")) {
 			active.DisplayMap ();
