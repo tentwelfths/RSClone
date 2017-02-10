@@ -49,7 +49,6 @@ public class PathFinder : MonoBehaviour
 					if (i >= path.Count)
                     {
 						return path [path.Count - 1];
-
 					}
 
 

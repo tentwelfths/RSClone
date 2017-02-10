@@ -11,11 +11,13 @@ public class CharacterWalk : MonoBehaviour {
     private Vector2 Destination;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
         Destination.x = transform.position.x;
         Destination.y = transform.position.z;
 		p = GetComponent<PathFinder> ();
     }
+
 	public void SetLocalGoal(Vector3 destination){
 		if (destination.y > 10000) {
 			destination = transform.position;
