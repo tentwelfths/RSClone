@@ -9,6 +9,8 @@ public class CookingRange : MonoBehaviour
 
     public ItemIO[] Cookables;
 
+    public string noItemsMessage = "You have nothing to cook!";
+
     
 
     // Use this for initialization
@@ -16,12 +18,6 @@ public class CookingRange : MonoBehaviour
     {
         if (Hotspot == null)
             Debug.LogError("No Hotspot initialized for " + gameObject.name);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void Cook()
@@ -35,7 +31,7 @@ public class CookingRange : MonoBehaviour
             if (Cookables[i].Execute())
                 return;
         }
-        GamePlayLog.LogMessage("You have nothing to cook!");
+        GamePlayLog.LogMessage(noItemsMessage);
     }
 
     public void UseItem()

@@ -17,15 +17,5 @@ public class ItemDictionary : MonoBehaviour {
                 
             Inventory.inv.importItem(items[i]);
         }
-	}
-
-    void CreateItem(Item _item)
-    {
-
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	}	
 }
