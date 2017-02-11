@@ -7,7 +7,7 @@ public class Skills : MonoBehaviour
 
     static Skills playerSkills;
     public string[] skillNames;
-    public Dictionary<string, Skill> skillList;
+    public Dictionary<string, Skill> skillList = new Dictionary<string, Skill>();
 
     // Use this for initialization
     void Awake()
@@ -23,7 +23,8 @@ public class Skills : MonoBehaviour
 
     private void addSkill(string _skill)
     {
-        skillList.Add(_skill, new Skill());
+        Skill toAdd = new Skill();
+        skillList.Add(_skill, toAdd);
     }
 
     public void gainExp(string _skill, int _exp)
@@ -45,16 +46,19 @@ public class Skills : MonoBehaviour
 
 public class Skill
 {
-    public Skill(int startlevel = 1)
+
+    public Skill()
     {
-        Level = startlevel;
+        Level = 1;
         SetMod(0);
+        currExp = 0;
+        nextExp = 100;
     }
 
-    private int Level;
-    private int Mod;
-    private int currExp;
-    private int nextExp;
+    int Level;
+    int Mod;
+    int currExp;
+    int nextExp;
 
     public void gainExp(int _exp)
     {
