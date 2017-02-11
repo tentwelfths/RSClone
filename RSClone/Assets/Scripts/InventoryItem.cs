@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryItem : MonoBehaviour {
+    public int Index = 0;
     public int quantity = 0;
 
     private string item;
@@ -68,7 +69,7 @@ public class InventoryItem : MonoBehaviour {
             use.funct = "UseItem";
             use.obj = gameObject;
             use.priority = 1;
-            use.text = "Use " + Inventory.inv.lookupItem(ActionLister.ins.useItem).name + " -> " + Inventory.inv.lookupItem(item).name;
+            use.text = "Use " + Inventory.inv.lookupItem(ActionLister.ins.useItem).name + " -> " + Inventory.inv.lookupItem(item);
             ActionLister.ins.AddAction(use);
 
         }
@@ -76,8 +77,7 @@ public class InventoryItem : MonoBehaviour {
 
     public void RemoveActions()
     {
-        if(ActionLister.ins.currState == ActionLister.ActionState.state_firstaction)
-            ActionLister.ins.RemoveActions(gameObject);
+        ActionLister.ins.RemoveActions(gameObject);
     }
 
     public void Examine()

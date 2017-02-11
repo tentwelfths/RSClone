@@ -10,14 +10,14 @@ public class ActionLister : MonoBehaviour
 
     public static ActionLister ins;
 
-    public enum ActionState
+    private enum ActionState
     {
         state_firstaction,
         state_listactions
     };
 
     private static List<Action> Actions = new List<Action>();
-    public ActionState currState = ActionState.state_firstaction;
+    private static ActionState currState = ActionState.state_firstaction;
     public UnityEngine.UI.Text topAction;
     public UnityEngine.UI.Text[] ActionButtonText;
     public UnityEngine.UI.Image ActionMenu;
