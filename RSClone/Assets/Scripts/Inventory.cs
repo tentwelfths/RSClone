@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour {
+public class Inventory : MonoBehaviour
+{
 
     public static Inventory inv;
 
@@ -22,7 +23,7 @@ public class Inventory : MonoBehaviour {
 
         if (itemSlots.Length != 19)
             Debug.LogError("ItemSlots must have 19 members!");
-        
+
     }
 
     // Set inventory to empty and gold to 0
@@ -41,7 +42,7 @@ public class Inventory : MonoBehaviour {
     // Called each time an item is added or removed from the inventory
     public void UpdateInventory()
     {
-        for(int i = 0; i < itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
             itemSlots[i].UpdateItem();
         }
@@ -67,7 +68,7 @@ public class Inventory : MonoBehaviour {
         }
         return false;
 
-        
+
     }
 
     public bool addItem(string _item, int qty)
@@ -85,7 +86,7 @@ public class Inventory : MonoBehaviour {
 
     public bool addItem(string[] _item)
     {
-        if(ItemSlotsFree() < _item.Length)
+        if (ItemSlotsFree() < _item.Length)
             return false;
 
         for (int i = 0; i < _item.Length; i++)
@@ -99,7 +100,7 @@ public class Inventory : MonoBehaviour {
     public bool CheckInventoryFull()
     {
         // Iterates through item slots
-        for(int i = 0; i < itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
             if (itemSlots[i].ItemName() == "")
                 return false;
@@ -131,13 +132,13 @@ public class Inventory : MonoBehaviour {
             if (itemSlots[i].ItemName() == _id)
                 return true;
         }
-            return false;
+        return false;
     }
 
     // Check for an array of items
     public bool CheckForItem(string[] _id)
     {
-        for(int i = 0; i < _id.Length; i++)
+        for (int i = 0; i < _id.Length; i++)
             if (!CheckForItem(_id[i]))
                 return false;
 
@@ -151,17 +152,17 @@ public class Inventory : MonoBehaviour {
             if (!RemoveItem(_toRemove[i]))
                 return false;
 
-            return true;
+        return true;
     }
 
     // Removes first instance of an item from player's inventory
     public bool RemoveItem(string _toRemove)
     {
         //Check that the player has it at all first
-        if(!CheckForItem(_toRemove))
-        return false;
+        if (!CheckForItem(_toRemove))
+            return false;
 
-        for(int i = 0; i < itemSlots.Length; i++)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
             if (itemSlots[i].ItemName() == _toRemove)
             {
@@ -187,8 +188,8 @@ public class Inventory : MonoBehaviour {
 
 
 
-   
-	
+
+
 }
 
 [System.Serializable]
@@ -218,12 +219,16 @@ public struct Item
 [System.Serializable]
 public class ItemIO
 {
+    public SkillExp reward;
     public string[] inputItems;
     public string successMessage;
     public string[] outputItems;
+    [Range(0f, 1f)]
     public float failureChance = 0.0f;
     public string failureMessage;
     public string[] failureOutputItems;
+    [Range(0f, 1f)]
+    public float time = 0.0f;
 
     public bool Execute()
     {
@@ -250,6 +255,6 @@ public class ItemIO
             Inventory.inv.addItem(failureOutputItems);
         }
 
-            return true;
+        return true;
     }
 }

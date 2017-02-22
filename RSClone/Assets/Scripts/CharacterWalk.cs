@@ -6,17 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(AligntoMap))]
 public class CharacterWalk : MonoBehaviour {
 	private float distance;
-	PathFinder p;
     public float speed = 1.0f;
-    private Vector2 Destination;
 
-	// Use this for initialization
-	void Start ()
-    {
-        Destination.x = transform.position.x;
-        Destination.y = transform.position.z;
-		p = GetComponent<PathFinder> ();
-    }
+
 
 	public void SetLocalGoal(Vector3 destination){
 		if (destination.y > 10000) {
@@ -26,22 +18,17 @@ public class CharacterWalk : MonoBehaviour {
 	}
     public void SetDestination(Vector3 destination)
     {
-		distance = 0.5f;
-		if (p != null) {
-			p.FindPath (transform.position, destination);
-		} else {
-			SetLocalGoal (destination);
-		}
-    }
-
-    public void SetDestination(Vector2 destination)
-    {
-        Destination.x = Mathf.RoundToInt(destination.x - 0.5f) + 0.5f;
-        Destination.y = Mathf.RoundToInt(destination.y - 0.5f) + 0.5f;
+        //distance = 0.5f;
+        //if (p != null) {
+        //	p.FindPath (transform.position, destination);
+        //} else {
+        //	SetLocalGoal (destination);
+        //}
+        GetComponent<CharacterPathFinder>().Target = destination;
     }
 
 	// Update is called once per frame
-	void FixedUpdate () {
+	/*void FixedUpdate () {
 		if (p != null&&!p.started) {
 			distance += speed / 60f;
 			SetLocalGoal(p.getPoint(distance));
@@ -58,5 +45,5 @@ public class CharacterWalk : MonoBehaviour {
         {
             transform.position = new Vector3(Destination.x, transform.position.y, Destination.y);
         }
-	}
+	}*/
 }

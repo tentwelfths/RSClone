@@ -14,8 +14,19 @@ public class Collectable : MonoBehaviour {
 
   private void Collect()
   {
+        StartCoroutine(CollectItem());
+  }
+
+    private IEnumerator CollectItem()
+    {
+        Player.character.SendMessage("SetDestination", transform.position);
+        while(CollisionMap.Map.Distance(Player.character.transform.position, transform.position) > 0)
+        {
+            yield return null;
+        }
+
         Inventory.inv.addItem(Item);
         gameObject.SendMessageUpwards("Collected", SendMessageOptions.DontRequireReceiver);
         Destroy(gameObject);
-  }
+    }
 }

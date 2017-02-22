@@ -64,6 +64,7 @@ public class PathFinder : MonoBehaviour
 		return Vector3.up*20000;
 
 	}
+
 	public void FindPath(Vector3 position, Vector3 target)
     {
 		if (!started)
@@ -218,7 +219,6 @@ public class PathFinder : MonoBehaviour
 		int squaresX = (int)(xDist / CollisionMapEditor.globalSquareSize) + 1;
 		int squaresY = (int)(yDist / CollisionMapEditor.globalSquareSize) + 1;
 		Vector3 lowerLeft = new Vector3 (Mathf.Min (position.x, target.x), 0, Mathf.Min (position.z, target.z));
-		//Vector3 upperRight = new Vector3 (Mathf.Max (position.x, target.x), 0, Mathf.Max (position.z, target.z));
 		Vector3 actualLow = lowerLeft + Vector3.left * CollisionMapEditor.globalSquareSize * margin + Vector3.back * CollisionMapEditor.globalSquareSize * margin;
 		List<CollisionPoint> points = new List<CollisionPoint> ();
 		CollisionPoint[,] pointGrid = new CollisionPoint[squaresX + margin * 2, squaresY + margin * 2];

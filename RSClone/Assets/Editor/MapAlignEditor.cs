@@ -15,6 +15,12 @@ public class MapAlignEditor : Editor {
             foreach(AligntoMap toAlign in targets)
             toAlign.alignToMap();
         }
+
+        if (GUILayout.Button("Align All To Map"))
+        {
+            foreach (AligntoMap toAlign in Object.FindObjectsOfType<AligntoMap>())
+                toAlign.alignToMap();
+        }
     }
 
 

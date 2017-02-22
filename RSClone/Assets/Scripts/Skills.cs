@@ -27,6 +27,11 @@ public class Skills : MonoBehaviour
         skillList.Add(_skill, toAdd);
     }
 
+    public void gainExp(SkillExp _gain)
+    {
+        gainExp(_gain.skill, _gain.value);
+    }
+
     public void gainExp(string _skill, int _exp)
     {
         skillList[_skill].gainExp(_exp);
@@ -98,4 +103,11 @@ public class Skill
     {
         Mod = _Mod;
     }
+}
+
+[System.Serializable]
+public struct SkillExp
+{
+    public string skill;
+    public int value;
 }

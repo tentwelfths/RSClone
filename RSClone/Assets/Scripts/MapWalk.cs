@@ -12,7 +12,7 @@ public class MapWalk : MonoBehaviour {
         {
             if (Physics.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Camera.main.transform.forward, out Ray))
             {
-                Player.character.SendMessage("SetDestination", Ray.point + new Vector3(0, 0.75f, 0));
+                Player.character.GetComponent<CharacterWalk>().SetDestination(Ray.point + new Vector3(0, 0.75f, 0));
             }
         }
         else
